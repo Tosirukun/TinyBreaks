@@ -1,0 +1,6 @@
+main: tk.tosirukun.tb.Tinybreaks
+name: TinyBreaks
+version: development
+commands:
+  seichi:
+    description: とじるくん整地鯖のメニューを開きます

@@ -1,0 +1,5 @@
+Database:
+  Url: localhost:3306
+  DBName: tinybreaks
+  Username: root
+  Password: yourpassword
