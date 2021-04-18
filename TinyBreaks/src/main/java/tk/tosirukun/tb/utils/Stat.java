@@ -1,39 +1,12 @@
 package tk.tosirukun.tb.utils;
 
 public class Stat {
-	private int level;
-	private int moon;
-
 	private long block;
-
-	private long max_block;
-
 	private long point;
-
-	private String rank;
-
-	public void setProperties(int level, int moon, long block, long max_block, String rank) {
-		this.level = level;
-		this.moon = moon;
+	private int before;
+	public void setProperties(long block, long point) {
 		this.block = block;
-		this.max_block = max_block;
-		this.rank = rank;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
-	public int getMoon() {
-		return moon;
-	}
-
-	public void setMoon(int moon) {
-		this.moon = moon;
+		this.point = point;
 	}
 
 	public long getBlock() {
@@ -44,22 +17,6 @@ public class Stat {
 		this.block = block;
 	}
 
-	public long getMax_block() {
-		return max_block;
-	}
-
-	public void setMax_block(long max_block) {
-		this.max_block = max_block;
-	}
-
-	public String getRank() {
-		return rank;
-	}
-
-	public void setRank(String rank) {
-		this.rank = rank;
-	}
-
 	public long getPoint() {
 		return point;
 	}
@@ -68,4 +25,11 @@ public class Stat {
 		this.point = point;
 	}
 
+	public int getBefore() {
+		return before;
+	}
+
+	public void setBefore(int before) {
+		this.before = before;
+	}
 }

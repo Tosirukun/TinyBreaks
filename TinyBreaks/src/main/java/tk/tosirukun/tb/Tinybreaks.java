@@ -32,6 +32,7 @@ public class Tinybreaks extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new Event(this), this);
 		if (DevelopMode) getLogger().info("成功しました");
 
+
 		Tinybreaks plugin = this;
 
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
@@ -46,8 +47,10 @@ public class Tinybreaks extends JavaPlugin {
 					}
 					obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 					obj.setDisplayName("とじるくん整地鯖");
-					Score block = obj.getScore("破壊ブロック数");
+					Score block = obj.getScore("破壊ブロック数 : ");
+					Score point = obj.getScore("ポイント : ");
 					block.setScore((int)plugin.statusManager.getStat(player).getBlock());
+					point.setScore((int)plugin.statusManager.getStat(player).getPoint());
 					player.setScoreboard(board);
 				}
 			}

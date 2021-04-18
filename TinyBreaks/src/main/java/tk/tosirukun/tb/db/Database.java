@@ -109,13 +109,11 @@ public class Database {
 	public void CreatePlayerAccount(int id, Player player) {
 		try (Connection con = hikari.getConnection();
 				PreparedStatement statement = con.prepareStatement(
-						"INSERT INTO `data` VALUES(?,?,?,?,?)"
+						"INSERT INTO `data` VALUES(?,?,?)"
 						)) {
 			statement.setInt(1, id);
 			statement.setInt(2, 0);
 			statement.setInt(3, 0);
-			statement.setInt(4, 0);
-			statement.setString(5, "整地初心者");
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -141,12 +139,12 @@ public class Database {
 		}
 		try (Connection con = hikari.getConnection()) {
 			try (PreparedStatement statement = con.prepareStatement(
-					"SELECT `block`, `level`, `moon`, `rank` FROM `data` WHERE `id`=?"
+					"SELECT `block`,`point` FROM `data` WHERE `id`=?"
 					)) {
 				statement.setInt(1, id);
 				try (ResultSet result = statement.executeQuery()) {
 					if (result.next()) {
-						status.setProperties(result.getInt(2), result.getInt(3), result.getInt(1), result.getInt(2) * 1000, result.getString(4));
+						status.setProperties(result.getInt(1), result.getInt(2));
 					}
 				}
 			}
@@ -155,11 +153,37 @@ public class Database {
 		}
 		return status;
 	}
-	
+
 	public void UpdatePlayerAccount(Player player, Stat status) {
 		try (Connection con = hikari.getConnection();
 				PreparedStatement statement = con.prepareStatement(
-						"UPDATE `data` SET `"))
+						"UPDATE `data` SET `block`=?,`point`=? WHERE `id`=?"
+						)) {
+			statement.setInt(1, (int)status.getBlock());
+			statement.setInt(2, (int)status.getPoint());
+			statement.setInt(3, this.getPlayerId(player));
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public int getPlayerId(Player player) {
+		try (Connection con = hikari.getConnection()) {
+			try (PreparedStatement statement = con.prepareStatement(
+					"SELECT `id` FROM `account` WHERE `uuid`=?"
+					)) {
+				statement.setString(1, player.getUniqueId().toString());
+				try (ResultSet result = statement.executeQuery()) {
+					if (result.next()) {
+						return result.getInt(1);
+					}
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return -1;
 	}
 
 }
